@@ -41,7 +41,7 @@
             </a>
           </li>
           <li class="nav-item">
-            <a href="{{ route('dashboard') }}" class="nav-link {{ request()->segment(1) == 'employee' ? 'active':'' }}">
+            <a href="{{ route('employee.index') }}" class="nav-link {{ request()->segment(1) == 'employee' ? 'active':'' }}">
               <i class="nav-icon fas fa-hospital-user"></i>
               <p>
                 Employees

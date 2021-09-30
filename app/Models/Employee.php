@@ -10,10 +10,16 @@ class Employee extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['first_name','last_name'];
+    protected $fillable = ['firts_name','last_name'];
+    protected $appends = ['full_name'];
 
     public function company()
     {
         return $this->belongsTo(Company::class);
+    }
+
+    public function getFullNameAttribute()
+    {
+        return $this->firts_name . ' ' . $this->last_name;
     }
 }

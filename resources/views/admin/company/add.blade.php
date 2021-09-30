@@ -1,17 +1,21 @@
 @extends('layouts.master')
-@section('title','Edit Company Data')
+@section('title','New Company Data')
 @section('content')
 <div class="card card-primary">
     <div class="card-header"></div>
-    <form method="GET" action="{{route('company.update',['company'=>$company->id])}}">
+    <form method="POST" action="{{route('company.store')}}" enctype= multipart/form-data>
+        @csrf
         <div class="card-body">
             <div class="form-group">
                 <label for="name">Company Name</label>
-                <input type="text" class="form-control" name="name" placeholder="Enter company name" value="{{ $company->name }}">
+                <input type="text" class="form-control" name="name" placeholder="Enter company name">
+                @error('name')
+                    <p class="text-danger">{{$message}}</p>
+                @enderror
             </div>
             <div class="form-group">
                 <label for="name">Company Email</label>
-                <input type="email" class="form-control" name="email" placeholder="Enter company name" value="{{ $company->email }}">
+                <input type="email" class="form-control" name="email" placeholder="Enter company name">
             </div>
             <div class="form-group">
                 <label for="exampleInputFile">Logo</label>
@@ -19,12 +23,12 @@
             </div>
             <div class="form-group">
                 <label for="name">Company Website</label>
-                <input type="text" class="form-control" name="website" placeholder="Enter website" value="{{ $company->website }}">
+                <input type="text" class="form-control" name="website" placeholder="Enter website" >
             </div>
         </div>
+        <div class="card-footer">
+            <button type="submit" class="btn btn-primary">Add</button>
+        </div>
     </form>
-    <div class="card-footer">
-        <button type="submit" class="btn btn-primary">Update</button>
-    </div>
 </div>
 @stop

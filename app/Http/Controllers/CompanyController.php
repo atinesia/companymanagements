@@ -23,50 +23,47 @@ class CompanyController extends Controller
                 $url= asset('storage/'.$company->logo);
                 return '<img src="'.$url.'" border="0" width="50" class="img-rounded" align="center" />';
             })
+            ->addColumn('c_website', function ($company) { 
+                return '<a target="_blank" href="'.$company->website.'">'.$company->website.'</a>';
+            })
             ->addColumn('action', function ($company) {
                 //return '<a href="'.route('company.show',['company'=>$company->id]).'"><i class="fa fa-edit"></i></a>';
-                return '<a href="#" id="edit-company" data-id="'.$company->id.'"><i class="fa fa-edit"></i></a>';
-            })->rawColumns(['c_logo', 'action'])->make(true);
+                return '
+                    <a href="#" id="edit-company" data-id="'.$company->id.'"><i class="fa fa-edit"></i></a>
+                    <a href="#" class="text-danger" id="delete-company" data-id="'.$company->id.'"><i class="fa fa-trash"></i></a>
+                ';
+            })->rawColumns(
+                [
+                    'c_logo', 'action',
+                    'c_website','action'
+                ]
+            )->make(true);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
-        //
+        return view('admin.company.add');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name' => 'required'
+        ]);
+
+        $company = new Company();
+        $company->name = $request->name;
+        $company->email = $request->email;
+        if(Request()->hasFile('logo')){
+            $path = Request()->file('logo')->store('/images/companylogo','public');
+            $company->logo = $path;
+        }
+        $company->website = $request->website;
+        $company->save();
+
+        return redirect(route('company.index'));
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function edit($id)
     {
         if (request()->ajax()) {
@@ -74,14 +71,6 @@ class CompanyController extends Controller
             return response()->json(['result' => $company]);
         }
     }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
 
     public function uploadFile($id){
         if(Request()->hasFile('file')){
@@ -116,14 +105,11 @@ class CompanyController extends Controller
         return response()->json(['success' => 'Company Data is successfully updated']);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function destroy($id)
     {
-        //
+        $company = Company::find($id);
+        $company->delete();
+
+        return response()->json(['success','company has been deleted!']);
     }
 }

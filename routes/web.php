@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CompanyController;
+use App\Http\Controllers\EmployeeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,6 +24,9 @@ Route::group(['middleware' => ['auth:sanctum','verified']], function(){
         Route::get('/company/json',[CompanyController::class,'jsonData'])->name('companyJson');
         Route::post('/company/{id}/upload',[CompanyController::class,'uploadFile'])->name('company.upload');
         Route::resource('company',CompanyController::class);
-        //Route::get('/company/{id}',[CompanyController::class,'show'])->name('company.show');
+        
+        //employee
+        Route::get('/employee/json',[EmployeeController::class,'jsonData'])->name('employeeJson');
+        Route::resource('employee',EmployeeController::class);
     });
 });

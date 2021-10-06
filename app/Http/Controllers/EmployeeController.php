@@ -12,20 +12,10 @@ class EmployeeController extends Controller
 {
     public function index()
     {
-
-        $from = date(Request()->date1);
-        $to = date(Request()->date2);
-        $search = Request()->search;
-        $employees = Employee::when(($from), function ($from,$to) {
-            return $this->whereBetween('created_at',[$from,$to]);
-            })
-            ->when($search, function ($search) {
-            return $this->where('email','%',$search.'%')
-                        ->orWhere('firts_name','%',$search.'%')
-                        ->orWhere('last_name','%',$search.'%');
-            });
-
-        return view('admin.employee.index',['employees' => $employees]);
+        $employees = Employee::latest()->filters(request()->all());
+        return view('admin.employee.index',[
+            'employees' => $employees->paginate(2)->withQueryString()
+        ]);
     }
 
     public function jsonData(){

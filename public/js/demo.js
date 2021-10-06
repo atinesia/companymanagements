@@ -10,6 +10,11 @@
 (function ($) {
   'use strict'
 
+  $('#filter_date1').change(function(){
+        var text = $('#filter_date1').val();
+        $('#filter_date2').val(text);
+  });
+
   function capitalizeFirstLetter(string) {
     return string.charAt(0).toUpperCase() + string.slice(1)
   }

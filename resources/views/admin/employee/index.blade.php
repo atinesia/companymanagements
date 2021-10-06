@@ -14,7 +14,7 @@
                             <div class="form-group">
                                 <label>Date From:</label>
                                 <div class="input-group date" id="reservationdate" data-target-input="nearest">
-                                    <input type="text" class="form-control" name="date1">
+                                    <input type="text" class="form-control" name="date1" id="filter_date1">
                                     <div class="input-group-append" data-target="#reservationdate" data-toggle="datetimepicker">
                                         <div class="input-group-text"><i class="fa fa-calendar"></i></div>
                                     </div>
@@ -25,7 +25,7 @@
                             <div class="form-group">
                                 <label>To:</label>
                                 <div class="input-group date" id="reservationdate2" data-target-input="nearest">
-                                    <input type="text" class="form-control" name="date2">
+                                    <input type="text" class="form-control" name="date2" id="filter_date2">
                                     <div class="input-group-append" data-target="#reservationdate2" data-toggle="datetimepicker">
                                         <div class="input-group-text"><i class="fa fa-calendar"></i></div>
                                     </div>
@@ -35,10 +35,10 @@
                         <div class="col-md-3">
                             <div class="form-group">
                                 <label for="search">Criteria</label>
-                                <input type="text" class="form-control" name="search">
+                                <input type="text" class="form-control" name="search" value="{{ request('search')}}">
                             </div>
                         </div>
-                        <div class="col-md-3">
+                        <div class="col-md-3 mt-4">
                             <div class="form-group">
                                 <button class="btn btn-primary" type="submit">Search</button>
                             </div>
@@ -53,6 +53,7 @@
                         <th>Comapany</th>
                         <th>Email</th>
                         <th>Phone</th>
+                        <th>Created_At</th>
                     </thead>
                     <tbody>
                         @foreach ($employees as $employee)
@@ -62,10 +63,16 @@
                                <td>{{ $employee->company->name }}</td>
                                <td>{{ $employee->email }}</td>
                                <td>{{ $employee->phone }}</td>
+                               <td>{{ $employee->created_at }}</td>
                             </tr>
                         @endforeach
                     </tbody>
                 </table>
+            </div>
+            <div class="card-footer">
+                <div class="d-flex justify-content-end">
+                    {{ $employees->links() }}
+                </div>
             </div>
         </div>
     </div>
@@ -82,6 +89,8 @@ $(document).ready(function(){
     $('#reservationdate2').datetimepicker({
         format: 'L'
     });
+
+
 });
 </script>
 @endpush

@@ -12,15 +12,27 @@ class EmployeeController extends Controller
 {
     public function index()
     {
-        $companies = Company::all();
-        return view('admin.employee.index',['companies' => $companies]);
+
+        $from = date(Request()->date1);
+        $to = date(Request()->date2);
+        $search = Request()->search;
+        $employees = Employee::when(($from), function ($from,$to) {
+            return $this->whereBetween('created_at',[$from,$to]);
+            })
+            ->when($search, function ($search) {
+            return $this->where('email','%',$search.'%')
+                        ->orWhere('firts_name','%',$search.'%')
+                        ->orWhere('last_name','%',$search.'%');
+            });
+
+        return view('admin.employee.index',['employees' => $employees]);
     }
 
     public function jsonData(){
         $employees = Employee::with('company')->latest()->get();
         return DataTables::of($employees)
             ->addIndexColumn()
-            ->addColumn('company', function ($employee) { 
+            ->addColumn('company', function ($employee) {
                 return '<a href="#" id="show-company-detail" data-id="'.$employee->company->id.'">'.$employee->company->name.'</a>';
             })
             ->addColumn('action', function ($employee) {

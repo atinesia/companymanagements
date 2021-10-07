@@ -17,13 +17,14 @@ class CompanyController extends Controller
 
     public function jsonData(){
         $companies = Company::latest()->get();
+        //dd($companies);
         return DataTables::of($companies)
             ->addIndexColumn()
-            ->addColumn('c_logo', function ($company) { 
+            ->addColumn('c_logo', function ($company) {
                 $url= asset('storage/'.$company->logo);
                 return '<img src="'.$url.'" border="0" width="50" class="img-rounded" align="center" />';
             })
-            ->addColumn('c_website', function ($company) { 
+            ->addColumn('c_website', function ($company) {
                 return '<a target="_blank" href="'.$company->website.'">'.$company->website.'</a>';
             })
             ->addColumn('action', function ($company) {
@@ -101,7 +102,7 @@ class CompanyController extends Controller
         $company->email = $request->email;
         $company->website = $request->website;
         $company->save();
-       
+
         return response()->json(['success' => 'Company Data is successfully updated']);
     }
 

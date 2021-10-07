@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\EmployeeController;
+use App\Http\Controllers\DailyQuoteController;
 
 /*
 |--------------------------------------------------------------------------
@@ -24,9 +25,12 @@ Route::group(['middleware' => ['auth:sanctum','verified']], function(){
         Route::get('/company/json',[CompanyController::class,'jsonData'])->name('companyJson');
         Route::post('/company/{id}/upload',[CompanyController::class,'uploadFile'])->name('company.upload');
         Route::resource('company',CompanyController::class);
-        
+
         //employee
         Route::get('/employee/json',[EmployeeController::class,'jsonData'])->name('employeeJson');
         Route::resource('employee',EmployeeController::class);
+
+        //quote
+        Route::get('/quotes',[DailyQuoteController::class,'index'])->name('quote.index');
     });
 });

@@ -23,7 +23,7 @@
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
-        
+
           <li class="nav-item">
             <a href="{{ route('dashboard') }}" class="nav-link {{ request()->segment(1) == '' ? 'active':'' }} ">
               <i class="nav-icon fas fa-th"></i>
@@ -48,6 +48,14 @@
               </p>
             </a>
           </li>
+          <li class="nav-item">
+            <a href="{{ route('quote.index') }}" class="nav-link {{ request()->segment(1) == 'quotes' ? 'active':'' }}">
+              <i class="nav-icon fas fa-hospital-user"></i>
+              <p>
+                Daily Quotes
+              </p>
+            </a>
+          </li>
           <form id="myform" method="POST" action="{{ route('logout') }}">
             @csrf
             </form>
@@ -59,7 +67,7 @@
           </li>
         </ul>
       </nav>
-      
+
       <!-- /.sidebar-menu -->
     </div>
     <!-- /.sidebar -->

@@ -20,6 +20,27 @@ class EmployeeController extends Controller
         ]);
     }
 
+    public function jsonData(){
+        $employees = Employee::with('company')->latest()->get();
+        return DataTables::of($employees)
+            ->addIndexColumn()
+            ->addColumn('company', function ($employee) {
+                return '<a href="#" id="show-company-detail" data-id="'.$employee->company->id.'">'.$employee->company->name.'</a>';
+            })
+            ->addColumn('action', function ($employee) {
+                //return '<a href="'.route('employee.show',['employee'=>$employee->id]).'"><i class="fa fa-edit"></i></a>';
+                return '
+                    <a href="#" id="edit-employee" data-id="'.$employee->id.'"><i class="fa fa-edit"></i></a>
+                    <a href="#" class="text-danger" id="delete-employee" data-id="'.$employee->id.'"><i class="fa fa-trash"></i></a>
+                ';
+            })->rawColumns(
+                [
+                    'c_website','action',
+                    'company','action'
+                ]
+            )->make(true);
+    }
+
     public function create()
     {
         $companies = Company::all();

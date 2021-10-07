@@ -11,6 +11,7 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
   <!-- Font Awesome -->
   <link rel="stylesheet" href="{{ asset('css/all.min.css') }}">
+  <link rel="stylesheet" href="{{ asset('css/daterangepicker.css') }}">
   <!-- Theme style -->
   <link rel="stylesheet" href="{{ asset('css/adminlte.min.css') }}">
   <link rel="stylesheet" href="{{ asset('css/tempusdominus-bootstrap-4.min.css') }}">
@@ -83,7 +84,7 @@
 <!-- ./wrapper -->
 
 <!-- jQuery -->
-<script src="{{ asset('js/jquery.min.js') }}"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 <!-- Bootstrap 4 -->
 <script src="{{ asset('js/bootstrap.bundle.min.js') }}"></script>
 <!-- AdminLTE App -->
@@ -100,7 +101,6 @@
 <script src="{{ asset('js/daterangepicker.js') }}"></script>
 <script src="{{ asset('js/tempusdominus-bootstrap-4.min.js') }}"></script>
 <script src="{{ asset('js/demo.js') }}"></script>
-
 </head>
 @stack('scripts')
 </body>

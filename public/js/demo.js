@@ -10,6 +10,15 @@
 (function ($) {
   'use strict'
 
+   //Date picker
+   $('#reservationdate').datetimepicker({
+        format: 'Y-M-D'
+    });
+
+    $('#reservationdate2').datetimepicker({
+        format: 'Y-M-D'
+    });
+
   function capitalizeFirstLetter(string) {
     return string.charAt(0).toUpperCase() + string.slice(1)
   }

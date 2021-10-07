@@ -13,22 +13,23 @@
   <link rel="stylesheet" href="{{ asset('css/all.min.css') }}">
   <!-- Theme style -->
   <link rel="stylesheet" href="{{ asset('css/adminlte.min.css') }}">
+  <link rel="stylesheet" href="{{ asset('css/tempusdominus-bootstrap-4.min.css') }}">
   <link rel="stylesheet" href="//cdn.datatables.net/1.10.7/css/jquery.dataTables.min.css">
-  
+
 <body class="hold-transition sidebar-mini">
 <!-- Site wrapper -->
 <div class="wrapper">
   <!-- Navbar -->
   <nav class="main-header navbar navbar-expand navbar-white navbar-light">
     <!-- Left navbar links -->
-    
 
-    
+
+
 
       <!-- Messages Dropdown Menu -->
-      
+
       <!-- Notifications Dropdown Menu -->
-      
+
     </ul>
   </nav>
   <!-- /.navbar -->
@@ -38,7 +39,7 @@
 
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
-    
+
     <section class="content">
       <!-- Default box -->
       <div class="card">
@@ -87,11 +88,19 @@
 <script src="{{ asset('js/bootstrap.bundle.min.js') }}"></script>
 <!-- AdminLTE App -->
 <script src="{{ asset('js/adminlte.min.js') }}"></script>
-<!-- AdminLTE for demo purposes -->
-<script src="{{ asset('js/demo.js') }}"></script>
+
+
 <script src="//cdn.datatables.net/1.10.7/js/jquery.dataTables.min.js"></script>
-  <link href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css" rel="stylesheet" />
-  <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+<link href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css" rel="stylesheet" />
+<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+
+<!-- AdminLTE for demo purposes -->
+<script src="{{ asset('js/moment.min.js') }}"></script>
+<script src="{{ asset('js/jquery.inputmask.min.js') }}"></script>
+<script src="{{ asset('js/daterangepicker.js') }}"></script>
+<script src="{{ asset('js/tempusdominus-bootstrap-4.min.js') }}"></script>
+<script src="{{ asset('js/demo.js') }}"></script>
+
 </head>
 @stack('scripts')
 </body>

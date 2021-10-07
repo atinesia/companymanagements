@@ -12,6 +12,7 @@ class Employee extends Model
 
     protected $fillable = ['firts_name','last_name'];
     protected $appends = ['full_name'];
+    protected $with = ['company'];
 
     public function company()
     {
@@ -21,5 +22,24 @@ class Employee extends Model
     public function getFullNameAttribute()
     {
         return $this->firts_name . ' ' . $this->last_name;
+    }
+
+    public function scopeFilters($query, array $filters)
+    {
+        $dateFrom = $filters['date1'] ?? null;
+        $dateTo = $filters['date2'] ?? null;
+        //dd($dateTo);
+        $query->when($dateFrom ?? false, function($query,$dateFrom)use($dateTo){
+            return $query->where('created_at','>=',$dateFrom)
+                         ->where('created_at','<=',$dateTo);
+        });
+        $query->when($filters['search'] ?? false, function($query,$search){
+            return $query->where('email','like','%'.$search.'%')
+                         ->orWhere('firts_name','like','%'.$search.'%')
+                         ->orWhere('last_name','like','%'.$search.'%')
+                         ->orWhereHas('company', function($query)use($search){
+                             return $query->where('name','like','%'.$search.'%');
+                         });
+        });
     }
 }

@@ -15,8 +15,8 @@ use App\Http\Controllers\API\DailyQuoteController;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::get('/getQuotes',[DailyQuoteController::class,'getQuotes'])->name('getQuote');
+Route::get('/getQuotes',[DailyQuoteController::class,'getQuotes'])->name('getQuote')->middleware('auth:sanctum');

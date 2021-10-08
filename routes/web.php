@@ -32,5 +32,6 @@ Route::group(['middleware' => ['auth:sanctum','verified']], function(){
 
         //quote
         Route::get('/quotes',[DailyQuoteController::class,'index'])->name('quote.index');
+        //Route::get('/getQuotes',[DailyQuoteController::class,'getQuotes'])->name('getQuote');
     });
 });

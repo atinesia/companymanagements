@@ -3,7 +3,7 @@
 @section('content')
 <div class="row mb-4">
     <div class="col-md-12">
-        <a href="{{route('company.create')}}" class="btn btn-primary"><i class="fas fa-add"></i> Add New</a>
+        <a href="#" class="btn btn-primary" id="load_quote"><i class="fas fa-add"></i> Refresh</a>
     </div>
 </div>
 <div class="row">
@@ -24,15 +24,25 @@
 @push('scripts')
 <script>
 $(document).ready(function(){
-    $.ajaxSetup({
-        headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        }
+    // $.ajaxSetup({
+    //     headers: {
+    //         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    //     }
+    // });
+    $('#load_quote').click(function(){
+        $('#quotes-table').DataTable().ajax.reload();
     });
+
     $('#quotes-table').DataTable({
         processing: true,
         serverSide: true,
-        ajax: "{{ route('getQuote') }}",
+        ajax: {
+            "headers": {
+                'accept' : 'application/json',
+                'Authorization': 'Bearer 4|kYiLgRXUKzPDfVqJxTwYgL9aLmj5SyPs6Xmqr7dB'
+            },
+            "url" : "{{ route('getQuote') }}",
+        },
         columns: [
             {data: 'q', name: 'q'},
             {data: 'a', name: 'a'},
